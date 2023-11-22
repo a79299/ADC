@@ -64,3 +64,41 @@ def visualizar_cliente(nif):
         print(f"Data de Nascimento: {cliente[4]}")
         print(f"NIF: {cliente[0]}")
         print(f"E-mail: {cliente[5]}")
+
+def atualizar_cliente(nif):
+    cliente = obter_cliente(nif)
+
+    if not cliente:
+        print(f"Nenhum cliente encontrado com NIF {nif}.")
+        return
+
+    try:
+        print("\nInformações do Cliente antes da atualização:")
+        print("\n")
+        print(f"Nome: {cliente[1]}")
+        print(f"Apelido: {cliente[2]}")
+        print(f"Telefone: {cliente[3]}")
+        print(f"Data de Nascimento: {cliente[4]}")
+        print(f"NIF: {cliente[0]}")
+        print(f"E-mail: {cliente[5]}")
+
+        novo_nome = input("Digite o novo nome: ")
+        novo_apelido = input("Digite o novo apelido: ")
+        novo_telefone = input("Digite o novo telefone: ")
+        novo_data_nascimento = input("Digite a nova data de nascimento: ")
+        novo_email = input("Digite o novo e-mail: ")
+
+        with conectar_banco_dados() as conexao:
+            cursor = conexao.cursor()
+            consulta = "UPDATE clientes SET nome=?, apelido=?, telefone=?, data_nascimento=?, email=? WHERE nif=?"
+            valores = (novo_nome, novo_apelido, novo_telefone, novo_data_nascimento, novo_email, nif)
+            cursor.execute(consulta, valores)
+            conexao.commit()
+
+        print(f"Informações do cliente com NIF {nif} atualizadas com sucesso.")
+
+    except sqlite3.Error as erro:
+        print(f"Erro ao atualizar cliente: {erro}")
+
+    finally:
+        fechar_conexao(conexao, cursor)
