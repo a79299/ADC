@@ -61,11 +61,16 @@ while True:
         if opcao_fatura == '0':
             continue
         elif opcao_fatura == '1':
-            criar_fatura()
+            nif_cliente = input("Digite o NIF do Cliente: ")
+            matricula = input("Digite a Matrícula do Veículo: ")
+            descricao_servico = input("Digite a Descrição do Serviço: ")
+            valor = float(input("Digite o Valor: "))
+            criar_fatura(nif_cliente, matricula, descricao_servico, valor)
         elif opcao_fatura == '2':
             visualizar_faturas()
         elif opcao_fatura == '3':
-            editar_fatura()
+            numero_fatura_para_editar = input("Digite o número da fatura que deseja editar: ")
+            editar_fatura(numero_fatura_para_editar)
         elif opcao_fatura == '4':
             numero_fatura = input("Digite o número da fatura que deseja eliminar: ")
             eliminar_fatura(numero_fatura)

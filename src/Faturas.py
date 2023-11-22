@@ -55,7 +55,7 @@ def visualizar_faturas():
 
     conexao.close()
 
-def editar_fatura(numero_fatura, novo_telefone="", nova_matricula="", nova_descricao_servico="", novo_valor=0.0):
+def editar_fatura(numero_fatura):
     conexao = sqlite3.connect('./database.db')
     cursor = conexao.cursor()
 
@@ -78,10 +78,11 @@ def editar_fatura(numero_fatura, novo_telefone="", nova_matricula="", nova_descr
     print("Descrição do Serviço:", fatura[7])
     print("Valor:", fatura[8])
 
-    novo_telefone = input("\nDigite o novo telefone do cliente (ou pressione Enter para manter o atual): ").strip() if not novo_telefone else novo_telefone
-    nova_matricula = input("Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): ").strip() if not nova_matricula else nova_matricula
-    nova_descricao_servico = input("Digite a nova descrição do serviço (ou pressione Enter para manter a atual): ").strip() if not nova_descricao_servico else nova_descricao_servico
-    novo_valor = float(input("Digite o novo valor (ou pressione Enter para manter o atual): ")) if not novo_valor else novo_valor
+    novo_telefone = input("\nDigite o novo telefone do cliente (ou pressione Enter para manter o atual): ").strip() or fatura[4]
+    nova_matricula = input("Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): ").strip() or fatura[5]
+    nova_descricao_servico = input("Digite a nova descrição do serviço (ou pressione Enter para manter a atual): ").strip() or fatura[7]
+    novo_valor_input = input("Digite o novo valor (ou pressione Enter para manter o atual): ")
+    novo_valor = float(novo_valor_input) if novo_valor_input.strip() else fatura[8]
 
     cursor.execute("UPDATE faturas SET telefone_cliente=?, matricula=?, descricao_servico=?, valor=? WHERE numero_fatura=?", 
                    (novo_telefone, nova_matricula, nova_descricao_servico, novo_valor, numero_fatura))
