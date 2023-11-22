@@ -59,4 +59,44 @@ def visualizar_faturas():
 
 visualizar_faturas()
 
+def editar_fatura():
+    conexao = sqlite3.connect('database.db')
+    cursor = conexao.cursor()
+
+    numero_fatura = input("Digite o número da fatura que deseja editar: ")
+
+    cursor.execute("SELECT * FROM faturas WHERE numero_fatura=?", (numero_fatura,))
+    fatura = cursor.fetchone()
+
+    if fatura is None:
+        print("Fatura não encontrada. Verifique o número da fatura.")
+        conexao.close()
+        return
+    
+    print("\nInformações atuais da fatura:")
+    print("Número da Fatura:", fatura[0])
+    print("NIF do Cliente:", fatura[1])
+    print("Nome do Cliente:", fatura[2])
+    print("Apelido do Cliente:", fatura[3])
+    print("Telefone do Cliente:", fatura[4])
+    print("Matrícula:", fatura[5])
+    print("Modelo do Veículo:", fatura[6])
+    print("Descrição do Serviço:", fatura[7])
+    print("Valor:", fatura[8])
+
+    novo_telefone = input("\nDigite o novo telefone do cliente (ou pressione Enter para manter o atual): ").strip()
+    nova_matricula = input("Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): ").strip()
+    nova_descricao_servico = input("Digite a nova descrição do serviço (ou pressione Enter para manter a atual): ").strip()
+    novo_valor = float(input("Digite o novo valor (ou pressione Enter para manter o atual): ")) 
+
+    cursor.execute("UPDATE faturas SET telefone_cliente=?, matricula=?, descricao_servico=?, valor=? WHERE numero_fatura=?", 
+                   (novo_telefone, nova_matricula, nova_descricao_servico, novo_valor, numero_fatura))
+
+    conexao.commit()
+    conexao.close()
+
+    print("\nFatura editada com sucesso!")
+
+editar_fatura()
+
 conexao.close()
