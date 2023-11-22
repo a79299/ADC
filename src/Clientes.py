@@ -1,14 +1,38 @@
+import sqlite3
+
 def conectar_banco_dados():
+    """
+    Conexão a base de dados
+
+    :return: Retorna uma conexão com a Base de dados SQLite.
+
+    :rtype: sqlite3.Connection
+    """
     return sqlite3.connect('database.db')
 
 def fechar_conexao(conexao, cursor=None):
+    """
+    Fecha conexão base de dados
 
+    :param conexao: Conexão com a Base de dados.
+
+    :type conexao: sqlite3.Connection
+
+    :param cursor: Cursor para executar consultas na Base de dados, defaults to None.
+
+    :type cursor: sqlite3.Cursor, optional
+    """
     if cursor:
         cursor.close()
     if conexao:
         conexao.close()
 
 def adicionar_cliente():
+    """
+    Solicita informações do utilizador para adicionar um novo cliente a Base de dados.
+    
+    :raises sqlite3.Error: Se ocorrer um erro durante a execução da consulta SQL.
+    """
     nome = input("Digite o seu nome: ")
     apelido = input("Digite o seu apelido: ")
     telefone = input("Digite o seu telefone: ")
@@ -34,6 +58,20 @@ def adicionar_cliente():
         fechar_conexao(conexao, cursor)
 
 def obter_cliente(nif):
+    """
+    
+    Obtém as informações de um cliente com base no NIF
+
+    :param nif: NIF do cliente
+
+    :type nif: str
+
+    :return: As informações do cliente
+
+    :rtype: tuple or None
+
+    :raises sqlite3.Error: Se ocorrer um erro durante a execução da consulta SQL
+    """
     try:
         conexao = conectar_banco_dados()
         cursor = conexao.cursor()
@@ -51,6 +89,13 @@ def obter_cliente(nif):
         fechar_conexao(conexao, cursor)
 
 def visualizar_cliente(nif):
+    """
+    Visualiza as informações de um cliente com base no NIF
+
+    :param nif: NIF do cliente
+
+    :type nif: str
+    """
     cliente = obter_cliente(nif)
 
     if not cliente:
@@ -66,6 +111,15 @@ def visualizar_cliente(nif):
         print(f"E-mail: {cliente[5]}")
 
 def atualizar_cliente(nif):
+    """
+    Atualiza as informações de um cliente com base no NIF
+
+    :param nif: NIF do cliente
+
+    :type nif: str
+
+    :raises sqlite3.Error: Se ocorrer um erro durante a execução da consulta SQL
+    """
     cliente = obter_cliente(nif)
 
     if not cliente:
@@ -104,6 +158,15 @@ def atualizar_cliente(nif):
         fechar_conexao(conexao, cursor)
 
 def eliminar_cliente(nif):
+    """
+    Exclui um cliente com base no NIF
+
+    :param nif: NIF do cliente a ser excluído
+
+    :type nif: str
+
+    :raises sqlite3.Error: Se ocorrer um erro durante a execução da consulta SQL
+    """
     cliente = obter_cliente(nif)
 
     if not cliente:
@@ -131,8 +194,12 @@ def eliminar_cliente(nif):
     finally:
         fechar_conexao(conexao, cursor)
 
-
 def visualizar_cliente_menu():
+    """
+    Solicita o NIF do cliente e exibe suas informações
+
+    :raises sqlite3.Error: Se ocorrer um erro durante a execução da consulta SQL
+    """
     try:
         nif_cliente = input("Digite o seu NIF: ")
         conexao = conectar_banco_dados()
@@ -160,6 +227,9 @@ def visualizar_cliente_menu():
         fechar_conexao(conexao, cursor)
 
 def Menu_Clientes():
+    """
+    Exibe um menu interativo para gerir os clientes.
+    """
     while True:
         print("\n===================================")
         print("=          MENU PRINCIPAL         =")
