@@ -158,3 +158,37 @@ def visualizar_cliente_menu():
 
     finally:
         fechar_conexao(conexao, cursor)
+
+def Menu_Clientes():
+    while True:
+        print("\n===================================")
+        print("=          MENU PRINCIPAL         =")
+        print("===================================\n")
+        print("Escolha uma opção:")
+        print("1 - Adicionar Cliente")
+        print("2 - Visualizar Cliente")
+        print("3 - Editar Cliente")
+        print("4 - Eliminar Cliente")
+        print("0 - SAIR")
+        opcao = input('Digite sua opção: ')
+
+        if opcao == '0':
+            print('Até breve!')
+            print('Fechando o programa...')
+            break
+        elif opcao == '1':
+            adicionar_cliente()
+        elif opcao == '2':
+            nif_cliente = input("Digite o NIF do cliente que deseja visualizar: ")
+            visualizar_cliente(nif_cliente)
+        elif opcao == '3':
+            nif_cliente = input("Digite o NIF do cliente que deseja atualizar: ")
+            atualizar_cliente(nif_cliente)
+        elif opcao == '4':
+            nif_cliente = input("Digite o NIF do cliente que deseja eliminar: ")
+            eliminar_cliente(nif_cliente)
+        else:
+            print("Opção inválida. Tente novamente.")
+
+if __name__ == "__main__":
+    Menu_Clientes()
