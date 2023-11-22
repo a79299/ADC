@@ -12,6 +12,17 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS clientes (
                     email TEXT
                 )''')
 
+cursor.execute('''CREATE TABLE IF NOT EXISTS veiculos (
+                    id_veiculo INTEGER PRIMARY KEY,
+                    marca TEXT,
+                    modelo TEXT,
+                    cor TEXT,
+                    ano DATE,
+                    matricula TEXT,
+                    nif INTEGER,
+                    FOREIGN KEY (nif) REFERENCES clientes(nif)
+                )''')
+
 conexao.commit()
 conexao.close()
 
