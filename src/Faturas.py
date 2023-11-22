@@ -30,8 +30,9 @@ def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
 
     print("Fatura criada com sucesso!")
 
-def visualizar_faturas():
+import sqlite3
 
+def visualizar_faturas():
     conexao = sqlite3.connect('./database.db')
     cursor = conexao.cursor()
 
@@ -53,8 +54,6 @@ def visualizar_faturas():
             print("Valor: {}\n".format(fatura[9]))
 
     conexao.close()
-
-visualizar_faturas()
 
 def editar_fatura():
     conexao = sqlite3.connect('database.db')
