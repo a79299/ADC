@@ -2,7 +2,7 @@ import sqlite3
 from tabulate import tabulate
 
 def listar_todos_veiculos():
-    conexao = sqlite3.connect('../database.db')
+    conexao = sqlite3.connect('database.db')
     cursor = conexao.cursor()
 
 
@@ -53,5 +53,25 @@ def listar_carros_cliente(nif_cliente):
 
     else:
         print(f"O cliente com NIF {nif_cliente} não possui carros.")
+
+    conexao.close()
+
+
+def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
+    conexao = sqlite3.connect('database.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("SELECT * FROM clientes WHERE nif = ?", (nif_cliente,))
+    cliente_existente = cursor.fetchone()
+
+    if cliente_existente:
+        cursor.execute('''INSERT INTO veiculos (marca, modelo, matricula, ano, cor, nif)
+                          VALUES (?, ?, ?, ?, ?, ?)''', (marca, modelo, matricula, ano, cor, nif_cliente))
+        conexao.commit()
+
+        print("Veículo adicionado com sucesso!")
+
+    else:
+        print("O cliente não existe na base de dados. Não foi possível adicionar o veículo.")
 
     conexao.close()
