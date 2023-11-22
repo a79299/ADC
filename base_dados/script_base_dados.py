@@ -10,7 +10,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS clientes (
                     telefone TEXT,
                     data_nascimento DATE,
                     email TEXT,
-                    password TEXT,
+                    password TEXT
                 )''')
 
 cursor.execute('''CREATE TABLE IF NOT EXISTS veiculos (
