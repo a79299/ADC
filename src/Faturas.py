@@ -55,11 +55,9 @@ def visualizar_faturas():
 
     conexao.close()
 
-def editar_fatura():
-    conexao = sqlite3.connect('database.db')
+def editar_fatura(numero_fatura, novo_telefone="", nova_matricula="", nova_descricao_servico="", novo_valor=0.0):
+    conexao = sqlite3.connect('./database.db')
     cursor = conexao.cursor()
-
-    numero_fatura = input("Digite o número da fatura que deseja editar: ")
 
     cursor.execute("SELECT * FROM faturas WHERE numero_fatura=?", (numero_fatura,))
     fatura = cursor.fetchone()
@@ -80,10 +78,10 @@ def editar_fatura():
     print("Descrição do Serviço:", fatura[7])
     print("Valor:", fatura[8])
 
-    novo_telefone = input("\nDigite o novo telefone do cliente (ou pressione Enter para manter o atual): ").strip()
-    nova_matricula = input("Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): ").strip()
-    nova_descricao_servico = input("Digite a nova descrição do serviço (ou pressione Enter para manter a atual): ").strip()
-    novo_valor = float(input("Digite o novo valor (ou pressione Enter para manter o atual): ")) 
+    novo_telefone = input("\nDigite o novo telefone do cliente (ou pressione Enter para manter o atual): ").strip() if not novo_telefone else novo_telefone
+    nova_matricula = input("Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): ").strip() if not nova_matricula else nova_matricula
+    nova_descricao_servico = input("Digite a nova descrição do serviço (ou pressione Enter para manter a atual): ").strip() if not nova_descricao_servico else nova_descricao_servico
+    novo_valor = float(input("Digite o novo valor (ou pressione Enter para manter o atual): ")) if not novo_valor else novo_valor
 
     cursor.execute("UPDATE faturas SET telefone_cliente=?, matricula=?, descricao_servico=?, valor=? WHERE numero_fatura=?", 
                    (novo_telefone, nova_matricula, nova_descricao_servico, novo_valor, numero_fatura))
@@ -92,8 +90,6 @@ def editar_fatura():
     conexao.close()
 
     print("\nFatura editada com sucesso!")
-
-editar_fatura()
 
 def eliminar_fatura(numero_fatura):
 
