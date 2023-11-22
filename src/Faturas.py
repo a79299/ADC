@@ -3,25 +3,24 @@ import sqlite3
 conexao = sqlite3.connect('./database.db')
 cursor = conexao.cursor()
 
-def criar_fatura():
-
-    nif_cliente = input("Digite o NIF do Cliente: ")
-    matricula = input("Digite a Matrícula do Veículo: ")
-    descricao_servico = input("Digite a Descrição do Serviço: ")
-    valor = float(input("Digite o Valor: ")) 
+def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
+    conexao = sqlite3.connect('./database.db')
+    cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM clientes WHERE nif=?", (nif_cliente,))
     cliente = cursor.fetchone()
 
     if cliente is None:
         print("Cliente não encontrado. Verifique o NIF.")
+        conexao.close()
         return
-
+    
     cursor.execute("SELECT * FROM veiculos WHERE matricula=?", (matricula,))
     veiculo = cursor.fetchone()
 
     if veiculo is None:
         print("Veículo não encontrado. Verifique a matrícula.")
+        conexao.close()
         return
 
     cursor.execute("INSERT INTO faturas (nif_cliente, nome_cliente, apelido_cliente, telefone_cliente, matricula, marca, modelo, descricao_servico, valor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -31,10 +30,9 @@ def criar_fatura():
 
     print("Fatura criada com sucesso!")
 
-criar_fatura()
+import sqlite3
 
 def visualizar_faturas():
-
     conexao = sqlite3.connect('./database.db')
     cursor = conexao.cursor()
 
@@ -57,13 +55,9 @@ def visualizar_faturas():
 
     conexao.close()
 
-visualizar_faturas()
-
-def editar_fatura():
-    conexao = sqlite3.connect('database.db')
+def editar_fatura(numero_fatura):
+    conexao = sqlite3.connect('./database.db')
     cursor = conexao.cursor()
-
-    numero_fatura = input("Digite o número da fatura que deseja editar: ")
 
     cursor.execute("SELECT * FROM faturas WHERE numero_fatura=?", (numero_fatura,))
     fatura = cursor.fetchone()
@@ -84,10 +78,11 @@ def editar_fatura():
     print("Descrição do Serviço:", fatura[7])
     print("Valor:", fatura[8])
 
-    novo_telefone = input("\nDigite o novo telefone do cliente (ou pressione Enter para manter o atual): ").strip()
-    nova_matricula = input("Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): ").strip()
-    nova_descricao_servico = input("Digite a nova descrição do serviço (ou pressione Enter para manter a atual): ").strip()
-    novo_valor = float(input("Digite o novo valor (ou pressione Enter para manter o atual): ")) 
+    novo_telefone = input("\nDigite o novo telefone do cliente (ou pressione Enter para manter o atual): ").strip() or fatura[4]
+    nova_matricula = input("Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): ").strip() or fatura[5]
+    nova_descricao_servico = input("Digite a nova descrição do serviço (ou pressione Enter para manter a atual): ").strip() or fatura[7]
+    novo_valor_input = input("Digite o novo valor (ou pressione Enter para manter o atual): ")
+    novo_valor = float(novo_valor_input) if novo_valor_input.strip() else fatura[8]
 
     cursor.execute("UPDATE faturas SET telefone_cliente=?, matricula=?, descricao_servico=?, valor=? WHERE numero_fatura=?", 
                    (novo_telefone, nova_matricula, nova_descricao_servico, novo_valor, numero_fatura))
@@ -97,10 +92,7 @@ def editar_fatura():
 
     print("\nFatura editada com sucesso!")
 
-editar_fatura()
-
 def eliminar_fatura(numero_fatura):
-
     conexao = sqlite3.connect('./database.db')
     cursor = conexao.cursor()
 
@@ -115,7 +107,5 @@ def eliminar_fatura(numero_fatura):
 
     conexao.commit()
     conexao.close()
-
-eliminar_fatura(1)
 
 conexao.close()
