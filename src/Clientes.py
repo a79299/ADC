@@ -49,3 +49,18 @@ def obter_cliente(nif):
 
     finally:
         fechar_conexao(conexao, cursor)
+
+def visualizar_cliente(nif):
+    cliente = obter_cliente(nif)
+
+    if not cliente:
+        print(f"Nenhum cliente encontrado com NIF {nif}.")
+    else:
+        print("\nInformações do Cliente:")
+        print("\n")
+        print(f"Nome: {cliente[1]}")
+        print(f"Apelido: {cliente[2]}")
+        print(f"Telefone: {cliente[3]}")
+        print(f"Data de Nascimento: {cliente[4]}")
+        print(f"NIF: {cliente[0]}")
+        print(f"E-mail: {cliente[5]}")
