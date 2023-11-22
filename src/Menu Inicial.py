@@ -1,5 +1,4 @@
 import sqlite3
-from src.Clientes import Menu_Clientes
 from Faturas import criar_fatura, visualizar_faturas, editar_fatura, eliminar_fatura
 
 print('###############################')
@@ -7,7 +6,6 @@ print('BEM VINDO Á OFICINA AUTOMOVEL!')
 print('###############################')
 print("\n")
 
-# Verificar se o Utilizador já tem uma conta
 registro = input('Você já tem uma conta? (S/N) ')
 
 if registro.lower() == 's':
@@ -15,7 +13,7 @@ if registro.lower() == 's':
     password = input('Digite sua senha: ')
     print('\n' * 2)
     print('Login realizado com sucesso!')
-    print('Bem-vindo, {}! É bom vê-lo!'.format(email.title()))
+    print('Bem-vindo, {}! É bom vê-lo!'.format(utilizador.title()))
 else:
     email = input('Digite seu email: ')
     password = input('Digite sua senha: ')
@@ -42,9 +40,10 @@ while True:
         print('Fechando o programa...')
         break
     elif opcao == '1':
-        Menu_Clientes()
+        print('Opção de clientes escolhida')
     elif opcao == '2':
-        print('')
+
+        print('Opção de veículos escolhida')
     elif opcao == '3':
         print("\n")
         print("###############################")
@@ -73,4 +72,4 @@ while True:
         else:
             print('Opção inválida. Tente novamente.')
     elif opcao == '4':
-        print('')
+        print('Opção de adicionar serviço escolhida')
