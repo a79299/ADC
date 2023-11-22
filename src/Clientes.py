@@ -102,3 +102,31 @@ def atualizar_cliente(nif):
 
     finally:
         fechar_conexao(conexao, cursor)
+
+def eliminar_cliente(nif):
+    cliente = obter_cliente(nif)
+
+    if not cliente:
+        print(f"Nenhum cliente encontrado com NIF {nif}.")
+        return
+
+    try:
+        visualizar_cliente(nif)
+
+        confirmacao = input(f"Tem certeza que deseja excluir o cliente com NIF {nif}? (s/n): ")
+        if confirmacao.lower() == 's':
+            with conectar_banco_dados() as conexao:
+                cursor = conexao.cursor()
+                consulta = "DELETE FROM clientes WHERE nif = ?"
+                cursor.execute(consulta, (nif,))
+                conexao.commit()
+
+            print(f"Cliente com NIF {nif} excluído com sucesso.")
+        else:
+            print("Exclusão cancelada.")
+
+    except sqlite3.Error as erro:
+        print(f"Erro ao excluir cliente: {erro}")
+
+    finally:
+        fechar_conexao(conexao, cursor)
