@@ -92,7 +92,6 @@ def editar_fatura(numero_fatura, novo_telefone="", nova_matricula="", nova_descr
     print("\nFatura editada com sucesso!")
 
 def eliminar_fatura(numero_fatura):
-
     conexao = sqlite3.connect('./database.db')
     cursor = conexao.cursor()
 
@@ -107,7 +106,5 @@ def eliminar_fatura(numero_fatura):
 
     conexao.commit()
     conexao.close()
-
-eliminar_fatura(1)
 
 conexao.close()
