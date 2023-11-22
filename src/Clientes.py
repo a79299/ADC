@@ -32,3 +32,20 @@ def adicionar_cliente():
 
     finally:
         fechar_conexao(conexao, cursor)
+
+def obter_cliente(nif):
+    try:
+        conexao = conectar_banco_dados()
+        cursor = conexao.cursor()
+
+        consulta = "SELECT * FROM clientes WHERE nif = ?"
+        cursor.execute(consulta, (nif,))
+        cliente = cursor.fetchone()
+
+        return cliente
+
+    except sqlite3.Error as erro:
+        print(f"Erro ao obter cliente: {erro}")
+
+    finally:
+        fechar_conexao(conexao, cursor)
