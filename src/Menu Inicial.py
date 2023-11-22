@@ -1,22 +1,6 @@
 import sqlite3
 from clientes.Menu_dos_Clientes import Menu_Clientes
 
-def adicionar_login(utilizador, password):
-    try:
-        conexao = sqlite3.connect('database.db')
-        cursor = conexao.cursor()
-
-        # Adiciona informações de login à tabela 'logins'
-        cursor.execute("INSERT INTO logins (utilizador, password) VALUES (?, ?)", (utilizador, password))
-        conexao.commit()
-        print("Informações de login adicionadas com sucesso!")
-
-    except sqlite3.Error as erro:
-        print(f"Erro ao adicionar informações de login: {erro}")
-
-    finally:
-        conexao.close()
-
 print('###############################')
 print('BEM VINDO Á OFICINA AUTOMOVEL!')
 print('###############################')
@@ -30,14 +14,13 @@ if registro.lower() == 's':
     password = input('Digite sua senha: ')
     print('\n' * 2)
     print('Login realizado com sucesso!')
-    print('Bem-vindo, {}! É bom vê-lo!'.format(utilizador.title()))
+    print('Bem-vindo, {}! É bom vê-lo!'.format(email.title()))
 else:
-    utilizador = input('Digite seu nome de Utilizador: ')
+    email = input('Digite seu email: ')
     password = input('Digite sua senha: ')
-    adicionar_login(utilizador, password)
     print('\n' * 2)
     print('Registro concluído com sucesso!')
-    print('Bem-vindo, {}! É bom vê-lo!'.format(utilizador.title()))
+    print('Bem-vindo, {}! É bom vê-lo!'.format(email.title()))
 
 while True:
     print("\n")
@@ -60,8 +43,8 @@ while True:
     elif opcao == '1':
         Menu_Clientes()
     elif opcao == '2':
-        print('O nome do ADM lindão é Daniel Sodré!')
+        print('')
     elif opcao == '3':
-        print('O nome do ADM lindão é Daniel Sodré!')
+        print('')
     elif opcao == '4':
-        print('O nome do ADM lindão é Daniel Sodré!')
+        print('')
