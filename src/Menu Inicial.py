@@ -33,7 +33,6 @@ while True:
     print("1 - Clientes")
     print("2 - Veiculos")
     print("3 - Faturas")
-    print("4 - Adicionar Serviço")
     print("0 - SAIR")
     opcao = input('Digite sua opção: ')
 
