@@ -1,5 +1,5 @@
 import sqlite3
-from clientes.Menu_dos_Clientes import Menu_Clientes
+from src.Clientes import Menu_Clientes
 
 print('###############################')
 print('BEM VINDO Á OFICINA AUTOMOVEL!')
