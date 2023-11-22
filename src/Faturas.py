@@ -99,4 +99,23 @@ def editar_fatura():
 
 editar_fatura()
 
+def eliminar_fatura(numero_fatura):
+
+    conexao = sqlite3.connect('./database.db')
+    cursor = conexao.cursor()
+
+    cursor.execute("SELECT * FROM faturas WHERE numero_fatura=?", (numero_fatura,))
+    fatura = cursor.fetchone()
+
+    if fatura is None:
+        print("Fatura não encontrada.")
+    else:
+        cursor.execute("DELETE FROM faturas WHERE numero_fatura=?", (numero_fatura,))
+        print("Fatura removida com sucesso.")
+
+    conexao.commit()
+    conexao.close()
+
+eliminar_fatura(1)
+
 conexao.close()
