@@ -1,7 +1,7 @@
 import sqlite3
 
 from Clientes import Menu_Clientes
-from Faturas import criar_fatura, visualizar_faturas, editar_fatura, eliminar_fatura
+from Faturas import menu_faturas
 
 print('###############################')
 print('BEM VINDO Á OFICINA AUTOMOVEL!')
@@ -44,39 +44,8 @@ while True:
     elif opcao == '1':
         print('Opção de clientes escolhida')
     elif opcao == '2':
-
         print('Opção de veículos escolhida')
     elif opcao == '3':
-        print("\n")
-        print("###############################")
-        print("#        MENU DE FATURAS       #")
-        print("###############################")
-        print("\n")
-        print("Escolha uma opção:")
-        print("1 - Criar Fatura")
-        print("2 - Visualizar Faturas")
-        print("3 - Editar Fatura")
-        print("4 - Eliminar Fatura")
-        print("0 - Voltar ao Menu Principal")
-        opcao_fatura = input('Digite sua opção: ')
-
-        if opcao_fatura == '0':
-            continue
-        elif opcao_fatura == '1':
-            nif_cliente = input("Digite o NIF do Cliente: ")
-            matricula = input("Digite a Matrícula do Veículo: ")
-            descricao_servico = input("Digite a Descrição do Serviço: ")
-            valor = float(input("Digite o Valor: "))
-            criar_fatura(nif_cliente, matricula, descricao_servico, valor)
-        elif opcao_fatura == '2':
-            visualizar_faturas()
-        elif opcao_fatura == '3':
-            numero_fatura_para_editar = input("Digite o número da fatura que deseja editar: ")
-            editar_fatura(numero_fatura_para_editar)
-        elif opcao_fatura == '4':
-            numero_fatura = input("Digite o número da fatura que deseja eliminar: ")
-            eliminar_fatura(numero_fatura)
-        else:
-            print('Opção inválida. Tente novamente.')
+        menu_faturas()
     elif opcao == '4':
         print('Opção de adicionar serviço escolhida')
