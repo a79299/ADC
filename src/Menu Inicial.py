@@ -1,5 +1,4 @@
 import sqlite3
-
 from Clientes import Menu_Clientes
 from Faturas import menu_faturas
 
@@ -46,3 +45,5 @@ while True:
         print('Opção de veículos escolhida')
     elif opcao == '3':
         menu_faturas()
+    else:
+        print('Opção inválida. Tente novamente.')
