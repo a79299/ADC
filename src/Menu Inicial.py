@@ -1,6 +1,7 @@
 import sqlite3
 
 from Clientes import Menu_Clientes
+from Faturas import criar_fatura, visualizar_faturas, editar_fatura, eliminar_fatura
 
 print('###############################')
 print('BEM VINDO Á OFICINA AUTOMOVEL!')
