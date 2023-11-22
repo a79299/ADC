@@ -75,3 +75,22 @@ def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
         print("O cliente não existe na base de dados. Não foi possível adicionar o veículo.")
 
     conexao.close()
+
+
+def eliminar_veiculo(matricula):
+    conexao = sqlite3.connect('../database.db')
+    cursor = conexao.cursor()
+
+    query_verificar = '''SELECT * FROM veiculos WHERE matricula = ?'''
+    cursor.execute(query_verificar, (matricula,))
+    veiculo = cursor.fetchone()
+
+    if veiculo:
+        query_eliminar = '''DELETE FROM veiculos WHERE matricula = ?'''
+        cursor.execute(query_eliminar, (matricula,))
+        conexao.commit()
+        print(f"Veículo com a matrícula '{matricula}' foi eliminado com sucesso.")
+    else:
+        print(f"Veículo com a matrícula '{matricula}' não encontrado.")
+
+    conexao.close()
