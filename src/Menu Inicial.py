@@ -34,6 +34,7 @@ if registro.lower() == 's':
 else:
     email = input('Digite seu email: ')
     password = input('Digite sua senha: ')
+    Menu_Clientes.adicionar_cliente(utilizador, password)
 
     # Check if the user exists
     if clientes_exists(cursor, email, password):
@@ -74,6 +75,4 @@ while True:
     else:
         print('Opção inválida. Tente novamente.')
 
-# Close the database connection when the program ends
 conn.close()
-#menu_faturas()
