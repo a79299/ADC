@@ -45,6 +45,11 @@ def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
     print("Fatura criada com sucesso!")
 
 def visualizar_faturas():
+
+    """
+    Visualiza todas as faturas registradas no banco de dados.
+    """
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
