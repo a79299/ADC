@@ -39,13 +39,13 @@ def adicionar_cliente():
     data_nascimento = input("Digite a sua data de nascimento: ")
     nif = input("Digite o seu nif: ")
     email = input("Digite o seu e-mail: ")
-    password = input("Digite o seu e-mail: ")
+    password = input("Digite o sua password: ")
 
     try:
         conexao = conectar_banco_dados()
         cursor = conexao.cursor()
 
-        consulta = "INSERT INTO clientes (nome, apelido, telefone, data_nascimento, nif, email) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        consulta = "INSERT INTO clientes (nome, apelido, telefone, data_nascimento, nif, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)"
         valores = (nome, apelido, telefone, data_nascimento, nif, email, password)
         cursor.execute(consulta, valores)
         conexao.commit()

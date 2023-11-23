@@ -1,5 +1,5 @@
 import sqlite3
-from Clientes import Menu_Clientes
+from Clientes import *
 from Faturas import menu_faturas
 
 # Connect to the database
@@ -32,19 +32,7 @@ if registro.lower() == 's':
         conn.close()
         exit()
 else:
-    email = input('Digite seu email: ')
-    password = input('Digite sua senha: ')
-    Menu_Clientes.adicionar_cliente(utilizador, password)
-
-    # Check if the user exists
-    if clientes_exists(cursor, email, password):
-        print('\n' * 2)
-        print('Registro concluído com sucesso!')
-        print('Bem-vindo, {}! É bom vê-lo!'.format(email.title()))
-    else:
-        print('Email ou senha inválidos. Encerrando o programa...')
-        conn.close()
-        exit()
+    adicionar_cliente()
 
 while True:
     print("\n")
