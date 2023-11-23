@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faturas &#8212; oficina_ADC 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=cb25574f" />
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Faturas</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
+
+<span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<div class="viewcode-block" id="criar_fatura">
+<a class="viewcode-back" href="../Faturas.html#Faturas.criar_fatura">[docs]</a>
+<span class="k">def</span> <span class="nf">criar_fatura</span><span class="p">(</span><span class="n">nif_cliente</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span> <span class="n">descricao_servico</span><span class="p">,</span> <span class="n">valor</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cria uma nova fatura para um cliente e veículo específicos.</span>
+
+<span class="sd">    :param nif_cliente: NIF do cliente</span>
+<span class="sd">    :type nif_cliente: str</span>
+<span class="sd">    :param matricula: Matrícula do veículo</span>
+<span class="sd">    :type matricula: str</span>
+<span class="sd">    :param descricao_servico: Descrição do serviço</span>
+<span class="sd">    :type descricao_servico: str</span>
+<span class="sd">    :param valor: Valor da fatura</span>
+<span class="sd">    :type valor: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM clientes WHERE nif=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nif_cliente</span><span class="p">,))</span>
+    <span class="n">cliente</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">cliente</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cliente não encontrado. Verifique o NIF.&quot;</span><span class="p">)</span>
+        <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span>
+    
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM veiculos WHERE matricula=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,))</span>
+    <span class="n">veiculo</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">veiculo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Veículo não encontrado. Verifique a matrícula.&quot;</span><span class="p">)</span>
+        <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO faturas (nif_cliente, nome_cliente, apelido_cliente, telefone_cliente, matricula, marca, modelo, descricao_servico, valor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)&quot;</span><span class="p">,</span>
+                   <span class="p">(</span><span class="n">cliente</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">veiculo</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">veiculo</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">veiculo</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">descricao_servico</span><span class="p">,</span> <span class="n">valor</span><span class="p">))</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fatura criada com sucesso!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="visualizar_faturas">
+<a class="viewcode-back" href="../Faturas.html#Faturas.visualizar_faturas">[docs]</a>
+<span class="k">def</span> <span class="nf">visualizar_faturas</span><span class="p">():</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Visualiza todas as faturas registradas no banco de dados.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM faturas&quot;</span><span class="p">)</span>
+    <span class="n">faturas</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">faturas</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Não há faturas registradas.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">======= Faturas =======&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fatura</span> <span class="ow">in</span> <span class="n">faturas</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Número da Fatura: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NIF do Cliente: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nome do Cliente: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Apelido do Cliente: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Telefone do Cliente: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">4</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrícula: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Modelo do Veículo: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Descrição do Serviço: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">8</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valor: </span><span class="si">{}</span><span class="s2">€</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fatura</span><span class="p">[</span><span class="mi">9</span><span class="p">]))</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="editar_fatura">
+<a class="viewcode-back" href="../Faturas.html#Faturas.editar_fatura">[docs]</a>
+<span class="k">def</span> <span class="nf">editar_fatura</span><span class="p">(</span><span class="n">numero_fatura</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Edita uma fatura existente com base no número da fatura fornecida.</span>
+
+<span class="sd">    :param numero_fatura: Número da fatura a ser editada</span>
+<span class="sd">    :type numero_fatura: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM faturas WHERE numero_fatura=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">numero_fatura</span><span class="p">,))</span>
+    <span class="n">fatura</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">fatura</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Fatura não encontrada. Verifique o número da fatura.&quot;</span><span class="p">)</span>
+        <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Informações atuais da fatura:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Número da Fatura:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NIF do Cliente:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nome do Cliente:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Apelido do Cliente:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Telefone do Cliente:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrícula:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Modelo do Veículo:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Descrição do Serviço:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valor:&quot;</span><span class="p">,</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+
+    <span class="n">novo_telefone</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Digite o novo telefone do cliente (ou pressione Enter para manter o atual): &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">nova_matricula</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite a nova matrícula do veículo (ou pressione Enter para manter a atual): &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">nova_descricao_servico</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite a nova descrição do serviço (ou pressione Enter para manter a atual): &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+    <span class="n">novo_valor_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite o novo valor (ou pressione Enter para manter o atual): &quot;</span><span class="p">)</span>
+    <span class="n">novo_valor</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">novo_valor_input</span><span class="p">)</span> <span class="k">if</span> <span class="n">novo_valor_input</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">else</span> <span class="n">fatura</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE faturas SET telefone_cliente=?, matricula=?, descricao_servico=?, valor=? WHERE numero_fatura=?&quot;</span><span class="p">,</span> 
+                   <span class="p">(</span><span class="n">novo_telefone</span><span class="p">,</span> <span class="n">nova_matricula</span><span class="p">,</span> <span class="n">nova_descricao_servico</span><span class="p">,</span> <span class="n">novo_valor</span><span class="p">,</span> <span class="n">numero_fatura</span><span class="p">))</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Fatura editada com sucesso!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="eliminar_fatura">
+<a class="viewcode-back" href="../Faturas.html#Faturas.eliminar_fatura">[docs]</a>
+<span class="k">def</span> <span class="nf">eliminar_fatura</span><span class="p">(</span><span class="n">numero_fatura</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove uma fatura com base no número da fatura fornecida.</span>
+
+<span class="sd">    :param numero_fatura: Número da fatura a ser removida</span>
+<span class="sd">    :type numero_fatura: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM faturas WHERE numero_fatura=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">numero_fatura</span><span class="p">,))</span>
+    <span class="n">fatura</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">fatura</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fatura não encontrada.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM faturas WHERE numero_fatura=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">numero_fatura</span><span class="p">,))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fatura removida com sucesso.&quot;</span><span class="p">)</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<div class="viewcode-block" id="menu_faturas">
+<a class="viewcode-back" href="../Faturas.html#Faturas.menu_faturas">[docs]</a>
+<span class="k">def</span> <span class="nf">menu_faturas</span><span class="p">():</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exibe um menu interativo para interagir com as faturas.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">###############################&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;#        MENU DE FATURAS       #&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;###############################</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Escolha uma opção:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1 - Criar Fatura&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2 - Visualizar Faturas&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3 - Editar Fatura&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4 - Eliminar Fatura&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0 - Voltar ao Menu Principal&quot;</span><span class="p">)</span>
+
+        <span class="n">opcao_fatura</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Digite sua opção: &#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">opcao_fatura</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">elif</span> <span class="n">opcao_fatura</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">nif_cliente</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite o NIF do Cliente: &quot;</span><span class="p">)</span>
+            <span class="n">matricula</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite a Matrícula do Veículo: &quot;</span><span class="p">)</span>
+            <span class="n">descricao_servico</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite a Descrição do Serviço: &quot;</span><span class="p">)</span>
+            <span class="n">valor</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite o Valor: &quot;</span><span class="p">))</span>
+            <span class="n">criar_fatura</span><span class="p">(</span><span class="n">nif_cliente</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span> <span class="n">descricao_servico</span><span class="p">,</span> <span class="n">valor</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opcao_fatura</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+            <span class="n">visualizar_faturas</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">opcao_fatura</span> <span class="o">==</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span>
+            <span class="n">numero_fatura_para_editar</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite o número da fatura que deseja editar: &quot;</span><span class="p">)</span>
+            <span class="n">editar_fatura</span><span class="p">(</span><span class="n">numero_fatura_para_editar</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opcao_fatura</span> <span class="o">==</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span>
+            <span class="n">numero_fatura</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite o número da fatura que deseja eliminar: &quot;</span><span class="p">)</span>
+            <span class="n">eliminar_fatura</span><span class="p">(</span><span class="n">numero_fatura</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Opção inválida. Tente novamente.&#39;</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">oficina_ADC</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Clientes.html">Clientes module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Faturas.html">Faturas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Menu%20Inicial.html">Menu Inicial module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Veiculos.html">Veiculos module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, grupo_E.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

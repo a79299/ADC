@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Clientes module &#8212; oficina_ADC 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Faturas module" href="Faturas.html" />
+    <link rel="prev" title="Welcome to oficina_ADC’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-Clientes">
+<span id="clientes-module"></span><h1>Clientes module<a class="headerlink" href="#module-Clientes" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.Menu_Clientes">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">Menu_Clientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#Menu_Clientes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.Menu_Clientes" title="Link to this definition">¶</a></dt>
+<dd><p>Exibe um menu interativo para gerir os clientes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.adicionar_cliente">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">adicionar_cliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#adicionar_cliente"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.adicionar_cliente" title="Link to this definition">¶</a></dt>
+<dd><p>Solicita informações do utilizador para adicionar um novo cliente a Base de dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sqlite3.Error</strong> – Se ocorrer um erro durante a execução da consulta SQL.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.atualizar_cliente">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">atualizar_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nif</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#atualizar_cliente"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.atualizar_cliente" title="Link to this definition">¶</a></dt>
+<dd><p>Atualiza as informações de um cliente com base no NIF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nif</strong> (<em>str</em>) – NIF do cliente</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>sqlite3.Error</strong> – Se ocorrer um erro durante a execução da consulta SQL</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.conectar_banco_dados">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">conectar_banco_dados</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#conectar_banco_dados"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.conectar_banco_dados" title="Link to this definition">¶</a></dt>
+<dd><p>Conexão a base de dados</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Retorna uma conexão com a Base de dados SQLite.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>sqlite3.Connection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.eliminar_cliente">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">eliminar_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nif</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#eliminar_cliente"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.eliminar_cliente" title="Link to this definition">¶</a></dt>
+<dd><p>Exclui um cliente com base no NIF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nif</strong> (<em>str</em>) – NIF do cliente a ser excluído</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>sqlite3.Error</strong> – Se ocorrer um erro durante a execução da consulta SQL</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.fechar_conexao">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">fechar_conexao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conexao</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cursor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#fechar_conexao"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.fechar_conexao" title="Link to this definition">¶</a></dt>
+<dd><p>Fecha conexão base de dados</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conexao</strong> (<em>sqlite3.Connection</em>) – Conexão com a Base de dados.</p></li>
+<li><p><strong>cursor</strong> (<em>sqlite3.Cursor</em><em>, </em><em>optional</em>) – Cursor para executar consultas na Base de dados, defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.obter_cliente">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">obter_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nif</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#obter_cliente"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.obter_cliente" title="Link to this definition">¶</a></dt>
+<dd><p>Obtém as informações de um cliente com base no NIF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nif</strong> (<em>str</em>) – NIF do cliente</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>As informações do cliente</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple or None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>sqlite3.Error</strong> – Se ocorrer um erro durante a execução da consulta SQL</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.visualizar_cliente">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">visualizar_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nif</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#visualizar_cliente"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.visualizar_cliente" title="Link to this definition">¶</a></dt>
+<dd><p>Visualiza as informações de um cliente com base no NIF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nif</strong> (<em>str</em>) – NIF do cliente</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.visualizar_cliente_menu">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">visualizar_cliente_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Clientes.html#visualizar_cliente_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Clientes.visualizar_cliente_menu" title="Link to this definition">¶</a></dt>
+<dd><p>Solicita o NIF do cliente e exibe suas informações</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sqlite3.Error</strong> – Se ocorrer um erro durante a execução da consulta SQL</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">oficina_ADC</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Clientes module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.Menu_Clientes"><code class="docutils literal notranslate"><span class="pre">Menu_Clientes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.adicionar_cliente"><code class="docutils literal notranslate"><span class="pre">adicionar_cliente()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.atualizar_cliente"><code class="docutils literal notranslate"><span class="pre">atualizar_cliente()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.conectar_banco_dados"><code class="docutils literal notranslate"><span class="pre">conectar_banco_dados()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.eliminar_cliente"><code class="docutils literal notranslate"><span class="pre">eliminar_cliente()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.fechar_conexao"><code class="docutils literal notranslate"><span class="pre">fechar_conexao()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.obter_cliente"><code class="docutils literal notranslate"><span class="pre">obter_cliente()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.visualizar_cliente"><code class="docutils literal notranslate"><span class="pre">visualizar_cliente()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Clientes.visualizar_cliente_menu"><code class="docutils literal notranslate"><span class="pre">visualizar_cliente_menu()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Faturas.html">Faturas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Menu%20Inicial.html">Menu Inicial module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Veiculos.html">Veiculos module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to oficina_ADC’s documentation!</a></li>
+      <li>Next: <a href="Faturas.html" title="next chapter">Faturas module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, grupo_E.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Clientes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

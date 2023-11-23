@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Faturas module &#8212; oficina_ADC 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Menu Inicial module" href="Menu%20Inicial.html" />
+    <link rel="prev" title="Clientes module" href="Clientes.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-Faturas">
+<span id="faturas-module"></span><h1>Faturas module<a class="headerlink" href="#module-Faturas" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Faturas.criar_fatura">
+<span class="sig-prename descclassname"><span class="pre">Faturas.</span></span><span class="sig-name descname"><span class="pre">criar_fatura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nif_cliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matricula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descricao_servico</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valor</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Faturas.html#criar_fatura"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Faturas.criar_fatura" title="Link to this definition">¶</a></dt>
+<dd><p>Cria uma nova fatura para um cliente e veículo específicos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nif_cliente</strong> (<em>str</em>) – NIF do cliente</p></li>
+<li><p><strong>matricula</strong> (<em>str</em>) – Matrícula do veículo</p></li>
+<li><p><strong>descricao_servico</strong> (<em>str</em>) – Descrição do serviço</p></li>
+<li><p><strong>valor</strong> (<em>float</em>) – Valor da fatura</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Faturas.editar_fatura">
+<span class="sig-prename descclassname"><span class="pre">Faturas.</span></span><span class="sig-name descname"><span class="pre">editar_fatura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numero_fatura</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Faturas.html#editar_fatura"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Faturas.editar_fatura" title="Link to this definition">¶</a></dt>
+<dd><p>Edita uma fatura existente com base no número da fatura fornecida.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>numero_fatura</strong> (<em>int</em>) – Número da fatura a ser editada</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Faturas.eliminar_fatura">
+<span class="sig-prename descclassname"><span class="pre">Faturas.</span></span><span class="sig-name descname"><span class="pre">eliminar_fatura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numero_fatura</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Faturas.html#eliminar_fatura"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Faturas.eliminar_fatura" title="Link to this definition">¶</a></dt>
+<dd><p>Remove uma fatura com base no número da fatura fornecida.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>numero_fatura</strong> (<em>int</em>) – Número da fatura a ser removida</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Faturas.menu_faturas">
+<span class="sig-prename descclassname"><span class="pre">Faturas.</span></span><span class="sig-name descname"><span class="pre">menu_faturas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Faturas.html#menu_faturas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Faturas.menu_faturas" title="Link to this definition">¶</a></dt>
+<dd><p>Exibe um menu interativo para interagir com as faturas.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Faturas.visualizar_faturas">
+<span class="sig-prename descclassname"><span class="pre">Faturas.</span></span><span class="sig-name descname"><span class="pre">visualizar_faturas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Faturas.html#visualizar_faturas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Faturas.visualizar_faturas" title="Link to this definition">¶</a></dt>
+<dd><p>Visualiza todas as faturas registradas no banco de dados.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">oficina_ADC</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Clientes.html">Clientes module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Faturas module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Faturas.criar_fatura"><code class="docutils literal notranslate"><span class="pre">criar_fatura()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Faturas.editar_fatura"><code class="docutils literal notranslate"><span class="pre">editar_fatura()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Faturas.eliminar_fatura"><code class="docutils literal notranslate"><span class="pre">eliminar_fatura()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Faturas.menu_faturas"><code class="docutils literal notranslate"><span class="pre">menu_faturas()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Faturas.visualizar_faturas"><code class="docutils literal notranslate"><span class="pre">visualizar_faturas()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Menu%20Inicial.html">Menu Inicial module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Veiculos.html">Veiculos module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Clientes.html" title="previous chapter">Clientes module</a></li>
+      <li>Next: <a href="Menu%20Inicial.html" title="next chapter">Menu Inicial module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, grupo_E.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/Faturas.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
