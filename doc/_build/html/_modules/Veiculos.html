@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veiculos &#8212; oficina_ADC 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=cb25574f" />
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for Veiculos</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+<div class="viewcode-block" id="listar_todos_veiculos">
+<a class="viewcode-back" href="../Veiculos.html#Veiculos.listar_todos_veiculos">[docs]</a>
+<span class="k">def</span> <span class="nf">listar_todos_veiculos</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">         Lista todos o veiculos da tabela Veiculos da ase de dados.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+
+    <span class="n">query_select_veiculos</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;SELECT v.id_veiculo, v.marca || &#39; &#39; || v.modelo AS veiculo,</span>
+<span class="s1">                               v.matricula, v.ano, v.cor, c.nome || &#39; &#39; || c.apelido AS proprietario</span>
+<span class="s1">                               FROM veiculos v</span>
+<span class="s1">                               JOIN clientes c ON v.nif = c.nif&#39;&#39;&#39;</span>
+
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_select_veiculos</span><span class="p">)</span>
+
+
+    <span class="n">resultados</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+    <span class="n">dados_tabela</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cabecalho</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Id Veiculo&quot;</span><span class="p">,</span> <span class="s2">&quot;Veiculo&quot;</span><span class="p">,</span> <span class="s2">&quot;Matricula&quot;</span><span class="p">,</span> <span class="s2">&quot;Ano&quot;</span><span class="p">,</span> <span class="s2">&quot;Cor&quot;</span><span class="p">,</span> <span class="s2">&quot;Proprietario&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">veiculo</span> <span class="ow">in</span> <span class="n">resultados</span><span class="p">:</span>
+        <span class="n">dados_tabela</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">veiculo</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">36</span> <span class="o">+</span> <span class="s2">&quot;Lista de veiculos&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">dados_tabela</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">cabecalho</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;pipe&quot;</span><span class="p">))</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="listar_carros_cliente">
+<a class="viewcode-back" href="../Veiculos.html#Veiculos.listar_carros_cliente">[docs]</a>
+<span class="k">def</span> <span class="nf">listar_carros_cliente</span><span class="p">(</span><span class="n">nif_cliente</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Lista os carros pertencentes a um cliente em funçao do nif do mesmo (nif do cliente é passado como argumento da</span>
+<span class="sd">        função)</span>
+
+<span class="sd">        :param nif_cliente: nif do cliente</span>
+<span class="sd">        :type nif_cliente: str</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">query_dados_cliente</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;SELECT c.nome, v.id_veiculo, v.marca, v.modelo, v.matricula, v.ano, v.cor</span>
+<span class="s1">                                 FROM clientes c</span>
+<span class="s1">                                 INNER JOIN veiculos v ON c.nif = v.nif</span>
+<span class="s1">                                 WHERE c.nif = ?&#39;&#39;&#39;</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_dados_cliente</span><span class="p">,</span> <span class="p">(</span><span class="n">nif_cliente</span><span class="p">,))</span>
+    <span class="n">dados_cliente_veiculos</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">dados_cliente_veiculos</span><span class="p">:</span>
+        <span class="n">cabecalho</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Id Veiculo&quot;</span><span class="p">,</span> <span class="s2">&quot;Marca&quot;</span><span class="p">,</span> <span class="s2">&quot;Modelo&quot;</span><span class="p">,</span> <span class="s2">&quot;Matricula&quot;</span><span class="p">,</span> <span class="s2">&quot;Ano&quot;</span><span class="p">,</span> <span class="s2">&quot;Cor&quot;</span><span class="p">]</span>
+
+        <span class="n">nome_cliente</span> <span class="o">=</span> <span class="n">dados_cliente_veiculos</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">veiculos_cliente</span> <span class="o">=</span> <span class="p">[</span><span class="n">veiculo</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">veiculo</span> <span class="ow">in</span> <span class="n">dados_cliente_veiculos</span><span class="p">]</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Carros do cliente </span><span class="si">{</span><span class="n">nome_cliente</span><span class="si">}</span><span class="s2"> com NIF </span><span class="si">{</span><span class="n">nif_cliente</span><span class="si">}</span><span class="s2">:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">tabulate</span><span class="p">(</span><span class="n">veiculos_cliente</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">cabecalho</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;pretty&quot;</span><span class="p">))</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;O cliente com NIF </span><span class="si">{</span><span class="n">nif_cliente</span><span class="si">}</span><span class="s2"> não possui carros.&quot;</span><span class="p">)</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="adicionar_veiculo">
+<a class="viewcode-back" href="../Veiculos.html#Veiculos.adicionar_veiculo">[docs]</a>
+<span class="k">def</span> <span class="nf">adicionar_veiculo</span><span class="p">(</span><span class="n">nif_cliente</span><span class="p">,</span> <span class="n">marca</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span> <span class="n">ano</span><span class="p">,</span> <span class="n">cor</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Cria um novo veiculo associado a um cliente com base no seu nif, recebe todos os parametros do veiculo</span>
+
+<span class="sd">        :param nif_cliente: nif do cliente</span>
+<span class="sd">        :type nif_cliente: str</span>
+
+<span class="sd">        :param marca: marca do veiculo</span>
+<span class="sd">        :type marca: str</span>
+
+<span class="sd">        :param modelo: modelo do veiculo</span>
+<span class="sd">        :type modelo: str</span>
+
+<span class="sd">        :param matricula: matricula do veiculo</span>
+<span class="sd">        :type matricula: str</span>
+
+<span class="sd">        :param ano: ano de fabrico do veiculo</span>
+<span class="sd">        :type ano: date</span>
+
+<span class="sd">        :param cor: cor do veiculo</span>
+<span class="sd">        :type cor: str</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM clientes WHERE nif = ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">nif_cliente</span><span class="p">,))</span>
+    <span class="n">cliente_existente</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">cliente_existente</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;INSERT INTO veiculos (marca, modelo, matricula, ano, cor, nif)</span>
+<span class="s1">                          VALUES (?, ?, ?, ?, ?, ?)&#39;&#39;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">marca</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span> <span class="n">ano</span><span class="p">,</span> <span class="n">cor</span><span class="p">,</span> <span class="n">nif_cliente</span><span class="p">))</span>
+        <span class="n">conexao</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Veículo adicionado com sucesso!&quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;O cliente não existe na base de dados. Não foi possível adicionar o veículo.&quot;</span><span class="p">)</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="eliminar_veiculo">
+<a class="viewcode-back" href="../Veiculos.html#Veiculos.eliminar_veiculo">[docs]</a>
+<span class="k">def</span> <span class="nf">eliminar_veiculo</span><span class="p">(</span><span class="n">matricula</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Elimina um veiculo em funcao da matricula do mesmo</span>
+
+<span class="sd">    :param matricula: matricula do carro</span>
+<span class="sd">    :type matricula: str</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">conexao</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;../database.db&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conexao</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">query_verificar</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;SELECT * FROM veiculos WHERE matricula = ?&#39;&#39;&#39;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_verificar</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,))</span>
+    <span class="n">veiculo</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">veiculo</span><span class="p">:</span>
+        <span class="n">query_eliminar</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;DELETE FROM veiculos WHERE matricula = ?&#39;&#39;&#39;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query_eliminar</span><span class="p">,</span> <span class="p">(</span><span class="n">matricula</span><span class="p">,))</span>
+        <span class="n">conexao</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Veículo com a matrícula &#39;</span><span class="si">{</span><span class="n">matricula</span><span class="si">}</span><span class="s2">&#39; foi eliminado com sucesso.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Veículo com a matrícula &#39;</span><span class="si">{</span><span class="n">matricula</span><span class="si">}</span><span class="s2">&#39; não encontrado.&quot;</span><span class="p">)</span>
+
+    <span class="n">conexao</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="menu_veiculos">
+<a class="viewcode-back" href="../Veiculos.html#Veiculos.menu_veiculos">[docs]</a>
+<span class="k">def</span> <span class="nf">menu_veiculos</span><span class="p">():</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Apresenta um menu que chama uma funcao dos veiculo de acordo com a opcao escolhida pelo utilizador</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Menu Principal ===&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Listar todos os veículos&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Listar carros de um cliente&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. Adicionar veículo&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;4. Eliminar veículo&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;5. Sair&quot;</span><span class="p">)</span>
+
+        <span class="n">opcao</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Escolha uma opção: &quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">opcao</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">listar_todos_veiculos</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">opcao</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+            <span class="n">nif</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite o NIF do cliente: &quot;</span><span class="p">)</span>
+            <span class="n">listar_carros_cliente</span><span class="p">(</span><span class="n">nif</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opcao</span> <span class="o">==</span> <span class="s1">&#39;3&#39;</span><span class="p">:</span>
+            <span class="n">nif</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite o NIF do cliente: &quot;</span><span class="p">)</span>
+            <span class="n">marca</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Marca do veículo: &quot;</span><span class="p">)</span>
+            <span class="n">modelo</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Modelo do veículo: &quot;</span><span class="p">)</span>
+            <span class="n">matricula</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Matrícula do veículo: &quot;</span><span class="p">)</span>
+            <span class="n">ano</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Ano do veículo: &quot;</span><span class="p">)</span>
+            <span class="n">cor</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Cor do veículo: &quot;</span><span class="p">)</span>
+            <span class="n">adicionar_veiculo</span><span class="p">(</span><span class="n">nif</span><span class="p">,</span> <span class="n">marca</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">matricula</span><span class="p">,</span> <span class="n">ano</span><span class="p">,</span> <span class="n">cor</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opcao</span> <span class="o">==</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span>
+            <span class="n">matricula</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Digite a matrícula do veículo a eliminar: &quot;</span><span class="p">)</span>
+            <span class="n">eliminar_veiculo</span><span class="p">(</span><span class="n">matricula</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">opcao</span> <span class="o">==</span> <span class="s1">&#39;5&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saindo do programa...&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Opção inválida. Tente novamente.&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">oficina_ADC</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Clientes.html">Clientes module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Faturas.html">Faturas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Menu%20Inicial.html">Menu Inicial module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Veiculos.html">Veiculos module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, grupo_E.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
