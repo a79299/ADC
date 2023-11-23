@@ -119,6 +119,14 @@ def editar_fatura(numero_fatura):
     print("\nFatura editada com sucesso!")
 
 def eliminar_fatura(numero_fatura):
+
+    """
+    Remove uma fatura com base no número da fatura fornecida.
+
+    :param numero_fatura: Número da fatura a ser removida
+    :type numero_fatura: int
+    """
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
