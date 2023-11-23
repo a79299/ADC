@@ -63,7 +63,7 @@ while True:
         print('Fechando o programa...')
         break
     elif opcao == '1':
-        print('Opção de clientes escolhida')
+        Menu_Clientes()
     elif opcao == '2':
         print('Opção de veículos escolhida')
     elif opcao == '3':
@@ -76,5 +76,4 @@ while True:
 
 # Close the database connection when the program ends
 conn.close()
-
-menu_faturas()
+#menu_faturas()
