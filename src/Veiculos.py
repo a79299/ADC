@@ -72,6 +72,28 @@ def listar_carros_cliente(nif_cliente):
 
 def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
 
+    '''
+        Cria um novo veiculo associado a um cliente com base no seu nif, recebe todos os parametros do veiculo
+
+        :param nif_cliente: nif do cliente
+        :type nif_cliente: str
+
+        :param marca: marca do veiculo
+        :type marca: str
+
+        :param modelo: modelo do veiculo
+        :type modelo: str
+
+        :param matricula: matricula do veiculo
+        :type matricula: str
+
+        :param ano: ano de fabrico do veiculo
+        :type ano: date
+
+        :param cor: cor do veiculo
+        :type cor: str
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
