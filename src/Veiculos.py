@@ -36,6 +36,14 @@ def listar_todos_veiculos():
 
 def listar_carros_cliente(nif_cliente):
 
+    '''
+        Lista os carros pertencentes a um cliente em funçao do nif do mesmo (nif do cliente é passado como argumento da
+        função)
+
+        :param nif_cliente: nif do cliente
+        :type nif_cliente: str
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
