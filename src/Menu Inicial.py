@@ -1,14 +1,14 @@
 import sqlite3
 from Clientes import Menu_Clientes
 
+# Connect to the database
+conn = sqlite3.connect('database.db')
+cursor = conn.cursor()
+
 def clientes_exists(cursor, email, password):
     # Check if the user exists in the database
     cursor.execute("SELECT * FROM clientes WHERE email = ? AND password = ?", (email, password))
     return cursor.fetchone() is not None
-
-# Connect to the database
-conn = sqlite3.connect('database.db')
-cursor = conn.cursor()
 
 print('###############################')
 print('BEM VINDO À OFICINA AUTOMÓVEL!')
