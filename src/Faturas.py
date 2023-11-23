@@ -145,6 +145,11 @@ def eliminar_fatura(numero_fatura):
 conexao.close()
 
 def menu_faturas():
+
+    """
+    Exibe um menu interativo para interagir com as faturas.
+    """
+
     while True:
         print("\n###############################")
         print("#        MENU DE FATURAS       #")
