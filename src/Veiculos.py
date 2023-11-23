@@ -140,6 +140,10 @@ def eliminar_veiculo(matricula):
     conexao.close()
 
 def menu_veiculos():
+
+    '''
+        Apresenta um menu que chama uma funcao dos veiculo de acordo com a opcao escolhida pelo utilizador
+    '''
     while True:
         print("\n=== Menu Principal ===")
         print("1. Listar todos os veículos")
