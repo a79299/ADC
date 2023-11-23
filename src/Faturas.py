@@ -1,10 +1,10 @@
 import sqlite3
 
-conexao = sqlite3.connect('./database.db')
+conexao = sqlite3.connect('../database.db')
 cursor = conexao.cursor()
 
 def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
-    conexao = sqlite3.connect('./database.db')
+    conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM clientes WHERE nif=?", (nif_cliente,))
@@ -33,15 +33,16 @@ def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
 import sqlite3
 
 def visualizar_faturas():
-    conexao = sqlite3.connect('./database.db')
+    conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM faturas")
     faturas = cursor.fetchall()
 
     if not faturas:
-        print("Não há faturas registradas.")
+        print("\nNão há faturas registradas.")
     else:
+        print("\n======= Faturas =======")
         for fatura in faturas:
             print("Número da Fatura: {}".format(fatura[0]))
             print("NIF do Cliente: {}".format(fatura[1]))
@@ -51,19 +52,19 @@ def visualizar_faturas():
             print("Matrícula: {}".format(fatura[5]))
             print("Modelo do Veículo: {}".format(fatura[6]))
             print("Descrição do Serviço: {}".format(fatura[8]))
-            print("Valor: {}\n".format(fatura[9]))
+            print("Valor: {}€\n".format(fatura[9]))
 
     conexao.close()
 
 def editar_fatura(numero_fatura):
-    conexao = sqlite3.connect('./database.db')
+    conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM faturas WHERE numero_fatura=?", (numero_fatura,))
     fatura = cursor.fetchone()
 
     if fatura is None:
-        print("Fatura não encontrada. Verifique o número da fatura.")
+        print("\nFatura não encontrada. Verifique o número da fatura.")
         conexao.close()
         return
     
@@ -93,7 +94,7 @@ def editar_fatura(numero_fatura):
     print("\nFatura editada com sucesso!")
 
 def eliminar_fatura(numero_fatura):
-    conexao = sqlite3.connect('./database.db')
+    conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM faturas WHERE numero_fatura=?", (numero_fatura,))
