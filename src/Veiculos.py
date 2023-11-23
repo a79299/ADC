@@ -2,6 +2,10 @@ import sqlite3
 from tabulate import tabulate
 
 def listar_todos_veiculos():
+    '''
+         Lista todos o veiculos da tabela Veiculos da ase de dados.
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -31,6 +35,7 @@ def listar_todos_veiculos():
 
 
 def listar_carros_cliente(nif_cliente):
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -58,6 +63,7 @@ def listar_carros_cliente(nif_cliente):
 
 
 def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -78,6 +84,7 @@ def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
 
 
 def eliminar_veiculo(matricula):
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
