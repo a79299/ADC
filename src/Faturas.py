@@ -4,6 +4,20 @@ conexao = sqlite3.connect('../database.db')
 cursor = conexao.cursor()
 
 def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
+
+    """
+    Cria uma nova fatura para um cliente e veículo específicos.
+
+    :param nif_cliente: NIF do cliente
+    :type nif_cliente: str
+    :param matricula: Matrícula do veículo
+    :type matricula: str
+    :param descricao_servico: Descrição do serviço
+    :type descricao_servico: str
+    :param valor: Valor da fatura
+    :type valor: float
+    """
+    
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -30,9 +44,12 @@ def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
 
     print("Fatura criada com sucesso!")
 
-import sqlite3
-
 def visualizar_faturas():
+
+    """
+    Visualiza todas as faturas registradas no banco de dados.
+    """
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -57,6 +74,14 @@ def visualizar_faturas():
     conexao.close()
 
 def editar_fatura(numero_fatura):
+
+    """
+    Edita uma fatura existente com base no número da fatura fornecida.
+
+    :param numero_fatura: Número da fatura a ser editada
+    :type numero_fatura: int
+    """
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -94,6 +119,14 @@ def editar_fatura(numero_fatura):
     print("\nFatura editada com sucesso!")
 
 def eliminar_fatura(numero_fatura):
+
+    """
+    Remove uma fatura com base no número da fatura fornecida.
+
+    :param numero_fatura: Número da fatura a ser removida
+    :type numero_fatura: int
+    """
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -112,6 +145,11 @@ def eliminar_fatura(numero_fatura):
 conexao.close()
 
 def menu_faturas():
+
+    """
+    Exibe um menu interativo para interagir com as faturas.
+    """
+
     while True:
         print("\n###############################")
         print("#        MENU DE FATURAS       #")
