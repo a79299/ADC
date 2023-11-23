@@ -2,7 +2,7 @@ import sqlite3
 from tabulate import tabulate
 
 def listar_todos_veiculos():
-    conexao = sqlite3.connect('database.db')
+    conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
 
@@ -58,7 +58,7 @@ def listar_carros_cliente(nif_cliente):
 
 
 def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
-    conexao = sqlite3.connect('database.db')
+    conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM clientes WHERE nif = ?", (nif_cliente,))
@@ -94,3 +94,38 @@ def eliminar_veiculo(matricula):
         print(f"Veículo com a matrícula '{matricula}' não encontrado.")
 
     conexao.close()
+
+def menu_veiculos():
+    while True:
+        print("\n=== Menu Principal ===")
+        print("1. Listar todos os veículos")
+        print("2. Listar carros de um cliente")
+        print("3. Adicionar veículo")
+        print("4. Eliminar veículo")
+        print("5. Sair")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == '1':
+            listar_todos_veiculos()
+        elif opcao == '2':
+            nif = input("Digite o NIF do cliente: ")
+            listar_carros_cliente(nif)
+        elif opcao == '3':
+            nif = input("Digite o NIF do cliente: ")
+            marca = input("Marca do veículo: ")
+            modelo = input("Modelo do veículo: ")
+            matricula = input("Matrícula do veículo: ")
+            ano = input("Ano do veículo: ")
+            cor = input("Cor do veículo: ")
+            adicionar_veiculo(nif, marca, modelo, matricula, ano, cor)
+        elif opcao == '4':
+            matricula = input("Digite a matrícula do veículo a eliminar: ")
+            eliminar_veiculo(matricula)
+        elif opcao == '5':
+            print("Saindo do programa...")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
+
+menu_veiculos()
