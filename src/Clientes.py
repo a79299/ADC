@@ -39,13 +39,14 @@ def adicionar_cliente():
     data_nascimento = input("Digite a sua data de nascimento: ")
     nif = input("Digite o seu nif: ")
     email = input("Digite o seu e-mail: ")
+    password = input("Digite o sua password: ")
 
     try:
         conexao = conectar_banco_dados()
         cursor = conexao.cursor()
 
-        consulta = "INSERT INTO clientes (nome, apelido, telefone, data_nascimento, nif, email) VALUES (?, ?, ?, ?, ?, ?)"
-        valores = (nome, apelido, telefone, data_nascimento, nif, email)
+        consulta = "INSERT INTO clientes (nome, apelido, telefone, data_nascimento, nif, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        valores = (nome, apelido, telefone, data_nascimento, nif, email, password)
         cursor.execute(consulta, valores)
         conexao.commit()
 
@@ -109,6 +110,7 @@ def visualizar_cliente(nif):
         print(f"Data de Nascimento: {cliente[4]}")
         print(f"NIF: {cliente[0]}")
         print(f"E-mail: {cliente[5]}")
+        print(f"Password: {cliente[6]}")
 
 def atualizar_cliente(nif):
     """
@@ -135,17 +137,19 @@ def atualizar_cliente(nif):
         print(f"Data de Nascimento: {cliente[4]}")
         print(f"NIF: {cliente[0]}")
         print(f"E-mail: {cliente[5]}")
+        print(f"Password: {cliente[6]}")
 
         novo_nome = input("Digite o novo nome: ")
         novo_apelido = input("Digite o novo apelido: ")
         novo_telefone = input("Digite o novo telefone: ")
         novo_data_nascimento = input("Digite a nova data de nascimento: ")
         novo_email = input("Digite o novo e-mail: ")
+        novo_password = input("Digite o novo e-mail: ")
 
         with conectar_banco_dados() as conexao:
             cursor = conexao.cursor()
-            consulta = "UPDATE clientes SET nome=?, apelido=?, telefone=?, data_nascimento=?, email=? WHERE nif=?"
-            valores = (novo_nome, novo_apelido, novo_telefone, novo_data_nascimento, novo_email, nif)
+            consulta = "UPDATE clientes SET nome=?, apelido=?, telefone=?, data_nascimento=?, email=?, password=? WHERE nif=?"
+            valores = (novo_nome, novo_apelido, novo_telefone, novo_data_nascimento, novo_email, novo_password, nif)
             cursor.execute(consulta, valores)
             conexao.commit()
 
@@ -219,6 +223,7 @@ def visualizar_cliente_menu():
             print(f"Data de Nascimento: {cliente[4]}")
             print(f"NIF: {cliente[0]}")
             print(f"E-mail: {cliente[5]}")
+            print(f"Password: {cliente[6]}")
 
     except sqlite3.Error as erro:
         print(f"Erro ao visualizar cliente: {erro}")
@@ -259,6 +264,3 @@ def Menu_Clientes():
             eliminar_cliente(nif_cliente)
         else:
             print("Opção inválida. Tente novamente.")
-
-if __name__ == "__main__":
-    Menu_Clientes()

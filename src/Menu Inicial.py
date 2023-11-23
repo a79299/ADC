@@ -1,5 +1,5 @@
 import sqlite3
-from Clientes import Menu_Clientes
+from Clientes import *
 from Faturas import menu_faturas
 
 # Connect to the database
@@ -7,7 +7,21 @@ conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
 def clientes_exists(cursor, email, password):
-    # Check if the user exists in the database
+    """
+    Verifica se o utilizador existe na base de dados.
+
+    :param cursor: Cursor para executar consultas na base de dados.
+    :type cursor: sqlite3.Cursor
+
+    :param email: Email do utilizador.
+    :type email: str
+
+    :param password: Senha do utilizador.
+    :type password: str
+
+    :return: True se o utilizador existe, False caso contrário.
+    :rtype: bool
+    """
     cursor.execute("SELECT * FROM clientes WHERE email = ? AND password = ?", (email, password))
     return cursor.fetchone() is not None
 
@@ -32,18 +46,7 @@ if registro.lower() == 's':
         conn.close()
         exit()
 else:
-    email = input('Digite seu email: ')
-    password = input('Digite sua senha: ')
-
-    # Check if the user exists
-    if clientes_exists(cursor, email, password):
-        print('\n' * 2)
-        print('Registro concluído com sucesso!')
-        print('Bem-vindo, {}! É bom vê-lo!'.format(email.title()))
-    else:
-        print('Email ou senha inválidos. Encerrando o programa...')
-        conn.close()
-        exit()
+    adicionar_cliente()
 
 while True:
     print("\n")
@@ -63,18 +66,14 @@ while True:
         print('Fechando o programa...')
         break
     elif opcao == '1':
-        print('Opção de clientes escolhida')
+        Menu_Clientes()
     elif opcao == '2':
         print('Opção de veículos escolhida')
     elif opcao == '3':
         menu_faturas() 
-        print('')
     elif opcao == '4':
         print('')
     else:
         print('Opção inválida. Tente novamente.')
 
-# Close the database connection when the program ends
 conn.close()
-
-menu_faturas()
