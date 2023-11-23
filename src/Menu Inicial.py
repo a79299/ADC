@@ -57,7 +57,6 @@ while True:
         print('Opção de veículos escolhida')
     elif opcao == '3':
         menu_faturas() 
-        print('')
     elif opcao == '4':
         print('')
     else:
