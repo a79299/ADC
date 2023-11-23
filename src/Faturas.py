@@ -74,6 +74,14 @@ def visualizar_faturas():
     conexao.close()
 
 def editar_fatura(numero_fatura):
+
+    """
+    Edita uma fatura existente com base no número da fatura fornecida.
+
+    :param numero_fatura: Número da fatura a ser editada
+    :type numero_fatura: int
+    """
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
