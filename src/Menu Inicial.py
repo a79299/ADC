@@ -7,7 +7,21 @@ conn = sqlite3.connect('database.db')
 cursor = conn.cursor()
 
 def clientes_exists(cursor, email, password):
-    # Check if the user exists in the database
+    """
+    Verifica se o utilizador existe na base de dados.
+
+    :param cursor: Cursor para executar consultas na base de dados.
+    :type cursor: sqlite3.Cursor
+
+    :param email: Email do utilizador.
+    :type email: str
+
+    :param password: Senha do utilizador.
+    :type password: str
+
+    :return: True se o utilizador existe, False caso contrário.
+    :rtype: bool
+    """
     cursor.execute("SELECT * FROM clientes WHERE email = ? AND password = ?", (email, password))
     return cursor.fetchone() is not None
 
