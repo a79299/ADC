@@ -1,5 +1,6 @@
 import sqlite3
 from Clientes import Menu_Clientes
+from Faturas import menu_faturas
 
 # Connect to the database
 conn = sqlite3.connect('database.db')
@@ -15,7 +16,6 @@ print('BEM VINDO À OFICINA AUTOMÓVEL!')
 print('###############################')
 print("\n")
 
-# Verificar se o Utilizador já tem uma conta
 registro = input('Você já tem uma conta? (S/N) ')
 
 if registro.lower() == 's':
@@ -55,7 +55,6 @@ while True:
     print("1 - Clientes")
     print("2 - Veiculos")
     print("3 - Faturas")
-    print("4 - Adicionar Serviço")
     print("0 - SAIR")
     opcao = input('Digite sua opção: ')
 
@@ -64,9 +63,9 @@ while True:
         print('Fechando o programa...')
         break
     elif opcao == '1':
-        Menu_Clientes()
+        print('Opção de clientes escolhida')
     elif opcao == '2':
-        print('')
+        print('Opção de veículos escolhida')
     elif opcao == '3':
         print('')
     elif opcao == '4':
@@ -74,3 +73,6 @@ while True:
 
 # Close the database connection when the program ends
 conn.close()
+
+menu_faturas()
+
