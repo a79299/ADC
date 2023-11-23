@@ -4,6 +4,20 @@ conexao = sqlite3.connect('../database.db')
 cursor = conexao.cursor()
 
 def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
+
+    """
+    Cria uma nova fatura para um cliente e veículo específicos.
+
+    :param nif_cliente: NIF do cliente
+    :type nif_cliente: str
+    :param matricula: Matrícula do veículo
+    :type matricula: str
+    :param descricao_servico: Descrição do serviço
+    :type descricao_servico: str
+    :param valor: Valor da fatura
+    :type valor: float
+    """
+    
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -29,8 +43,6 @@ def criar_fatura(nif_cliente, matricula, descricao_servico, valor):
     conexao.commit()
 
     print("Fatura criada com sucesso!")
-
-import sqlite3
 
 def visualizar_faturas():
     conexao = sqlite3.connect('../database.db')
