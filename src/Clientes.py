@@ -264,6 +264,3 @@ def Menu_Clientes():
             eliminar_cliente(nif_cliente)
         else:
             print("Opção inválida. Tente novamente.")
-
-if __name__ == "__main__":
-    Menu_Clientes()

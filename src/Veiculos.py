@@ -175,5 +175,3 @@ def menu_veiculos():
             break
         else:
             print("Opção inválida. Tente novamente.")
-
-menu_veiculos()

@@ -182,5 +182,3 @@ def menu_faturas():
         else:
             print('Opção inválida. Tente novamente.')
 
-if __name__ == "__main__":
-    menu_faturas()
