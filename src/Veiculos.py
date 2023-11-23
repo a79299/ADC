@@ -115,6 +115,13 @@ def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
 
 def eliminar_veiculo(matricula):
 
+    '''
+    Elimina um veiculo em funcao da matricula do mesmo
+
+    :param matricula: matricula do carro
+    :type matricula: str
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
