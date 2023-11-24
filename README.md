@@ -4,14 +4,16 @@ Este README documenta as etapas necessárias para colocar seu aplicativo em func
 
 ### Para que serve este repositório?
 
-* Resumo rápido...
-* Versão...
-* [Sintaxe básica de gravação e formatação no GitHub](https://docs.github.com/pt/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+* Este repositorio serve para armazenar e gerenciar as versoes do projeto desenvolvido no ambito ca Unidade Curricular Ambiente de Desenvolvimento Colaborativo. Permite a vizualização das alteracoes realizadas pelos colabradores sendo tambem possivel reverte-las
+  facilitando assim o trabalho em equipa e a manutencao do codigo.
+  
 
 ### Como faço para configurar?
 
-* Resumo da configuração...
-* Configuração...
+* Configuração
+
+     É necessario ter instalado a versão 3.10 do python e criar um ambiente virtual
+  
 * Dependências
 
     Para criar um ambiente virtual
@@ -32,9 +34,9 @@ Este README documenta as etapas necessárias para colocar seu aplicativo em func
     $ pip install -r requirements.txt
     ```
 
-* Configuração de banco de dados...
-* Como fazer testes...
-* Instruções de implantação...
+* Configuração de banco de dados
+  
+     É necessario executar o ficheiro script_base_dados.py e de seguida executar também o ficheiro script_base_dados.py. Ambos os ficheiros estão inseridos no dieretorio base_dados do projeto.
 
 #### Documentação
 
@@ -53,13 +55,7 @@ $ sphinx-apidoc -F -f -A "nome do autor" -V 0 -R 0.1 -H "nome da aplicação" -e
 
 Posteriormente deve configurar o ficheiro `doc\config.py` com as alterações que entenda necessárias
 
-### Diretrizes de contribuição
-
-* Testes de escrita...
-* Revisão de código...
-* Outras diretrizes...
 
 ### Com quem devo falar?
 
-* Proprietário ou administrador do repo...
-* Outro contato da comunidade ou equipe...
+* Tomás Anastácio, Diogo Rodrigues, Bernardo Freitas
