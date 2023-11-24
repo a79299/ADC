@@ -2,6 +2,10 @@ import sqlite3
 from tabulate import tabulate
 
 def listar_todos_veiculos():
+    '''
+         Lista todos o veiculos da tabela Veiculos da ase de dados.
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -31,6 +35,15 @@ def listar_todos_veiculos():
 
 
 def listar_carros_cliente(nif_cliente):
+
+    '''
+        Lista os carros pertencentes a um cliente em funçao do nif do mesmo (nif do cliente é passado como argumento da
+        função)
+
+        :param nif_cliente: nif do cliente
+        :type nif_cliente: str
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -58,6 +71,29 @@ def listar_carros_cliente(nif_cliente):
 
 
 def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
+
+    '''
+        Cria um novo veiculo associado a um cliente com base no seu nif, recebe todos os parametros do veiculo
+
+        :param nif_cliente: nif do cliente
+        :type nif_cliente: str
+
+        :param marca: marca do veiculo
+        :type marca: str
+
+        :param modelo: modelo do veiculo
+        :type modelo: str
+
+        :param matricula: matricula do veiculo
+        :type matricula: str
+
+        :param ano: ano de fabrico do veiculo
+        :type ano: date
+
+        :param cor: cor do veiculo
+        :type cor: str
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -78,6 +114,14 @@ def adicionar_veiculo(nif_cliente, marca, modelo, matricula, ano, cor):
 
 
 def eliminar_veiculo(matricula):
+
+    '''
+    Elimina um veiculo em funcao da matricula do mesmo
+
+    :param matricula: matricula do carro
+    :type matricula: str
+    '''
+
     conexao = sqlite3.connect('../database.db')
     cursor = conexao.cursor()
 
@@ -96,6 +140,10 @@ def eliminar_veiculo(matricula):
     conexao.close()
 
 def menu_veiculos():
+
+    '''
+        Apresenta um menu que chama uma funcao dos veiculo de acordo com a opcao escolhida pelo utilizador
+    '''
     while True:
         print("\n=== Menu Principal ===")
         print("1. Listar todos os veículos")
@@ -127,5 +175,3 @@ def menu_veiculos():
             break
         else:
             print("Opção inválida. Tente novamente.")
-
-menu_veiculos()
