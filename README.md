@@ -1,10 +1,10 @@
 # README
 
-Este README documenta as etapas necessárias para colocar seu aplicativo em funcionamento.
+Este README documenta as etapas necessárias para colocar o aplicativo em funcionamento.
 
 ### Para que serve este repositório?
 
-* Este repositorio serve para armazenar e gerenciar as versoes do projeto desenvolvido no ambito ca Unidade Curricular Ambiente de Desenvolvimento Colaborativo. Permite a vizualização das alteracoes realizadas pelos colabradores sendo tambem possivel reverte-las
+* Este repositorio serve para armazenar e gerenciar as versoes do projeto desenvolvido no ambito da Unidade Curricular Ambiente de Desenvolvimento Colaborativo. Permite a vizualização das alteracoes realizadas pelos colaboradores sendo tambem possivel reverte-las
   facilitando assim o trabalho em equipa e a manutencao do codigo.
   
 
@@ -58,4 +58,4 @@ Posteriormente deve configurar o ficheiro `doc\config.py` com as alterações qu
 
 ### Com quem devo falar?
 
-* Tomás Anastácio, Diogo Rodrigues, Bernardo Freitas
+*  Bernardo Freitas, Tomás Anastácio, Diogo Rodrigues
